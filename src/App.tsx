@@ -29,7 +29,7 @@ type Level = {
 };
 
 export default function App() {
-  const [gameState, setGameState] = useState<'start' | 'level' | 'finalQuiz' | 'userInfo' | 'result'>('start');
+  const [gameState, setGameState] = useState<'start' | 'level' | 'levelValidation' | 'finalQuiz' | 'userInfo' | 'result'>('start');
   const [showMaterial, setShowMaterial] = useState(true);
   const [currentLevelIdx, setCurrentLevelIdx] = useState(0);
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
@@ -37,9 +37,30 @@ export default function App() {
   const [userData, setUserData] = useState({ name: '', class: '', school: '' });
   const [progress, setProgress] = useState(0);
   const [strokeIdx, setStrokeIdx] = useState(0);
+  const [levelAnswers, setLevelAnswers] = useState<number[]>([]);
+  const [validationResult, setValidationResult] = useState<{ correct: number; total: number } | null>(null);
 
   const levels: Level[] = questionsData.levels;
   const finalQuiz: Question[] = questionsData.finalQuiz;
+
+  const successMessages = [
+    "Luar biasa! Kamu telah menguasai level ini dengan sempurna! 🛠️",
+    "Hebat! Semua jawabanmu tepat. Kamu benar-benar calon mekanik handal! 🎯",
+    "Sempurna! Kamu siap melangkah ke tantangan berikutnya! 🚀",
+    "Mantap! Pengetahuanmu tentang mesin 4 tak sangat mengesankan! 🔥"
+  ];
+
+  const retryMessages = [
+    "Hampir sampai! Ada beberapa bagian yang perlu kamu tinjau kembali. 💪",
+    "Jangan menyerah! Mekanik hebat belajar dari setiap kesalahan. Ayo coba lagi! ⚡",
+    "Sedikit lagi! Periksa kembali jawabanmu agar mesin bisa bekerja sempurna! 🧐",
+    "Ayo semangat! Kamu pasti bisa menyelesaikan level ini dengan benar semua! 🔧"
+  ];
+
+  const getRandomMessage = (type: 'success' | 'retry') => {
+    const msgs = type === 'success' ? successMessages : retryMessages;
+    return msgs[Math.floor(Math.random() * msgs.length)];
+  };
 
   const strokes = [
     { name: 'HISAP (Intake)', desc: 'Piston bergerak dari TMA ke TMB. Katup masuk terbuka, campuran udara dan bahan bakar terhisap ke dalam silinder.', color: 'bg-blue-400', pistonPos: 'translate-y-0' },
@@ -58,12 +79,14 @@ export default function App() {
   }, [gameState, showMaterial, currentLevelIdx]);
 
   useEffect(() => {
-    const totalSteps = levels.length * 5 + finalQuiz.length; // 1 material + 4 questions per level
+    const totalSteps = levels.length * 6 + finalQuiz.length; // 1 material + 4 questions + 1 validation per level
     let currentStep = 0;
     if (gameState === 'level') {
-      currentStep = currentLevelIdx * 5 + (showMaterial ? 0 : currentQuestionIdx + 1);
+      currentStep = currentLevelIdx * 6 + (showMaterial ? 0 : currentQuestionIdx + 1);
+    } else if (gameState === 'levelValidation') {
+      currentStep = currentLevelIdx * 6 + 5;
     } else if (gameState === 'finalQuiz') {
-      currentStep = levels.length * 5 + currentQuestionIdx;
+      currentStep = levels.length * 6 + currentQuestionIdx;
     } else if (gameState === 'result') {
       currentStep = totalSteps;
     }
@@ -73,33 +96,46 @@ export default function App() {
   const handleStart = () => {
     setGameState('level');
     setShowMaterial(true);
+    setLevelAnswers([]);
   };
 
   const handleAnswer = (idx: number) => {
-    const currentLevel = levels[currentLevelIdx];
-    const question = currentLevel.questions[currentQuestionIdx];
+    const newAnswers = [...levelAnswers, idx];
+    setLevelAnswers(newAnswers);
     
-    if (idx === question.correct) {
-      setScore(s => s + 10);
-    }
-
-    nextQuestion();
-  };
-
-  const nextQuestion = () => {
     const currentLevel = levels[currentLevelIdx];
     if (currentQuestionIdx < currentLevel.questions.length - 1) {
       setCurrentQuestionIdx(currentQuestionIdx + 1);
     } else {
-      if (currentLevelIdx < levels.length - 1) {
-        setCurrentLevelIdx(currentLevelIdx + 1);
-        setCurrentQuestionIdx(0);
-        setShowMaterial(true);
-      } else {
-        setGameState('finalQuiz');
-        setCurrentQuestionIdx(0);
-      }
+      // Validate level
+      let correctCount = 0;
+      currentLevel.questions.forEach((q, i) => {
+        if (newAnswers[i] === q.correct) correctCount++;
+      });
+      setValidationResult({ correct: correctCount, total: currentLevel.questions.length });
+      setGameState('levelValidation');
     }
+  };
+
+  const proceedToNextLevel = () => {
+    setScore(s => s + (validationResult?.correct || 0) * 10);
+    if (currentLevelIdx < levels.length - 1) {
+      setCurrentLevelIdx(currentLevelIdx + 1);
+      setCurrentQuestionIdx(0);
+      setLevelAnswers([]);
+      setShowMaterial(true);
+      setGameState('level');
+    } else {
+      setGameState('finalQuiz');
+      setCurrentQuestionIdx(0);
+      setLevelAnswers([]);
+    }
+  };
+
+  const retryLevel = () => {
+    setCurrentQuestionIdx(0);
+    setLevelAnswers([]);
+    setGameState('level');
   };
 
   const handleFinalAnswer = (idx: number) => {
@@ -157,10 +193,10 @@ export default function App() {
     );
   }
 
-  if (gameState === 'level' || gameState === 'finalQuiz') {
-    const isLevel = gameState === 'level';
+  if (gameState === 'level' || gameState === 'levelValidation' || gameState === 'finalQuiz') {
+    const isLevel = gameState === 'level' || gameState === 'levelValidation';
     const currentLevel = levels[currentLevelIdx];
-    const question = isLevel ? currentLevel.questions[currentQuestionIdx] : finalQuiz[currentQuestionIdx];
+    const question = (gameState === 'level') ? currentLevel.questions[currentQuestionIdx] : (gameState === 'finalQuiz' ? finalQuiz[currentQuestionIdx] : null);
 
     return (
       <div className="min-h-screen bg-slate-100 text-slate-900 p-4 md:p-8 flex flex-col items-center">
@@ -186,7 +222,65 @@ export default function App() {
             />
           </div>
 
-          {isLevel && showMaterial ? (
+          {gameState === 'levelValidation' && validationResult && (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-white border-2 border-blue-600 rounded-2xl p-8 shadow-xl text-center"
+            >
+              <div className="flex justify-center mb-6">
+                {validationResult.correct === validationResult.total ? (
+                  <div className="bg-emerald-100 p-4 rounded-full">
+                    <CheckCircle2 className="w-12 h-12 text-emerald-600" />
+                  </div>
+                ) : (
+                  <div className="bg-rose-100 p-4 rounded-full">
+                    <AlertCircle className="w-12 h-12 text-rose-600" />
+                  </div>
+                )}
+              </div>
+
+              <h3 className="text-2xl font-black mb-4">
+                {validationResult.correct === validationResult.total ? 'Level Selesai!' : 'Belum Sempurna!'}
+              </h3>
+              
+              <p className="text-slate-600 font-medium mb-6 leading-relaxed">
+                {validationResult.correct === validationResult.total 
+                  ? getRandomMessage('success')
+                  : `${getRandomMessage('retry')} (Masih ada ${validationResult.total - validationResult.correct} soal yang salah)`}
+              </p>
+
+              <div className="bg-slate-50 p-4 rounded-xl mb-8 flex justify-around items-center border border-slate-100">
+                <div className="text-center">
+                  <p className="text-xs font-bold text-slate-400 uppercase mb-1">Benar</p>
+                  <p className="text-2xl font-black text-emerald-600">{validationResult.correct}</p>
+                </div>
+                <div className="w-px h-10 bg-slate-200" />
+                <div className="text-center">
+                  <p className="text-xs font-bold text-slate-400 uppercase mb-1">Total Soal</p>
+                  <p className="text-2xl font-black text-slate-800">{validationResult.total}</p>
+                </div>
+              </div>
+
+              {validationResult.correct === validationResult.total ? (
+                <button 
+                  onClick={proceedToNextLevel}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-blue-600/20"
+                >
+                  LANJUT KE TAHAP BERIKUTNYA <ArrowRight className="w-5 h-5" />
+                </button>
+              ) : (
+                <button 
+                  onClick={retryLevel}
+                  className="w-full bg-rose-600 hover:bg-rose-700 text-white font-black py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-rose-600/20"
+                >
+                  ULANGI LEVEL INI <RotateCcw className="w-5 h-5" />
+                </button>
+              )}
+            </motion.div>
+          )}
+
+          {isLevel && showMaterial && gameState === 'level' && (
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -297,7 +391,9 @@ export default function App() {
                 SAYA MENGERTI, LANJUT KE PERTANYAAN <ArrowRight className="w-5 h-5" />
               </button>
             </motion.div>
-          ) : (
+          )}
+
+          {gameState !== 'levelValidation' && (!showMaterial || !isLevel) && question && (
             <motion.div 
               key={`${gameState}-${currentLevelIdx}-${currentQuestionIdx}`}
               initial={{ opacity: 0, scale: 0.95 }}
