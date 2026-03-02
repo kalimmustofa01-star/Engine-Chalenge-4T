@@ -1,0 +1,100 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "title": "Prinsip Dasar Mesin 4 Tak",
+      "material": "Mesin 4 tak memerlukan 4 langkah piston (2 putaran poros engkol) untuk menghasilkan 1 tenaga. Langkahnya: Hisap, Kompresi, Usaha, dan Buang.",
+      "ascii": "  [ KATUP ]\n  |       |\n  | PISTON|  <-- Bergerak Naik/Turun\n  |  [O]  |\n  |   |   |\n  '---'---'",
+      "questions": [
+        {
+          "q": "Apa yang terjadi pada langkah Hisap?",
+          "a": ["Piston naik, katup buang buka", "Piston turun, katup masuk buka", "Piston naik, kedua katup tutup"],
+          "correct": 1
+        },
+        {
+          "q": "Berapa kali poros engkol berputar dalam satu siklus 4 tak?",
+          "a": ["1 kali", "2 kali", "4 kali"],
+          "correct": 1
+        },
+        {
+          "q": "Pada langkah apa percikan busi terjadi?",
+          "a": ["Akhir Kompresi", "Awal Hisap", "Akhir Usaha"],
+          "correct": 0
+        },
+        {
+          "q": "Analisis: Mengapa mesin 4 tak lebih irit dibanding 2 tak?",
+          "a": ["Karena memiliki sistem katup yang mengatur masuk/buang secara presisi", "Karena putaran mesin lebih lambat", "Karena menggunakan oli samping"],
+          "correct": 0
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Komponen dan Fungsinya",
+      "material": "Berikut adalah komponen utama mesin 4 tak:\n1. Kepala Silinder (Cylinder Head): Tempat ruang bakar dan mekanisme katup.\n2. Blok Silinder (Cylinder Block): Tempat piston bergerak naik turun.\n3. Torak (Piston): Menerima tekanan pembakaran.\n4. Ring Piston (Piston Ring): Mencegah kebocoran kompresi dan menyapu oli.\n5. Batang Piston (Connecting Rod): Menghubungkan piston ke poros engkol.\n6. Poros Engkol (Crankshaft): Mengubah gerak lurus menjadi gerak putar.\n7. Poros Cam (Camshaft/Noken As): Mengatur pembukaan katup.\n8. Katup (Valve): Pintu masuk campuran udara-bahan bakar dan pintu keluar gas buang.",
+      "ascii": "      _________      \n     /         \\     \n    |-----------|    <-- Ring Piston\n    |-----------|    \n    |     _     |    \n    |    (O)    |    <-- Pin Piston\n    |     |     |    \n    |     |     |    <-- Batang Piston (Con-Rod)\n    |    / \\    |    \n    |   (   )   |    \n    |    \\_/    |    <-- Poros Engkol (Crankshaft)",
+      "questions": [
+        {
+          "q": "Apa fungsi utama Ring Kompresi?",
+          "a": ["Melumasi dinding silinder", "Mencegah kebocoran gas", "Mendinginkan piston"],
+          "correct": 1
+        },
+        {
+          "q": "Komponen yang mengubah gerak naik turun menjadi gerak putar adalah...",
+          "a": ["Poros Cam", "Poros Engkol", "Batang Piston"],
+          "correct": 1
+        },
+        {
+          "q": "Katup digerakkan oleh komponen apa?",
+          "a": ["Piston", "Poros Cam (Noken As)", "Roda Gila"],
+          "correct": 1
+        },
+        {
+          "q": "Analisis: Apa akibatnya jika celah katup terlalu rapat?",
+          "a": ["Suara mesin kasar", "Katup tidak menutup rapat saat panas (bocor kompresi)", "Konsumsi bensin jadi lebih irit"],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Perawatan Komponen",
+      "material": "Perawatan rutin meliputi penyetelan celah katup, penggantian oli, dan pembersihan kerak karbon pada kepala piston.",
+      "ascii": "        ___        \n       |   |       <-- Batang Katup\n       |   |       \n      /     \\      \n     /_______\\     <-- Payung Katup\n    (_________)    \n    ___________    \n   |  LUBANG   |   <-- Blok Silinder\n   | SILINDER  |   \n   |___________|   ",
+      "questions": [
+        {
+          "q": "Alat untuk mengukur celah katup adalah...",
+          "a": ["Mikrometer", "Feeler Gauge", "Jangka Sorong"],
+          "correct": 1
+        },
+        {
+          "q": "Kapan sebaiknya penyetelan katup dilakukan?",
+          "a": ["Saat mesin panas", "Saat mesin dingin (Top 1)", "Kapan saja"],
+          "correct": 1
+        },
+        {
+          "q": "Apa fungsi oli pada mesin?",
+          "a": ["Bahan bakar", "Pelumas dan pendingin", "Penambah tenaga"],
+          "correct": 1
+        },
+        {
+          "q": "Analisis: Mengapa oli mesin yang sudah hitam harus diganti?",
+          "a": ["Agar warna mesin tetap bagus", "Karena viskositas menurun dan mengandung gram logam yang merusak", "Hanya untuk mengikuti anjuran pabrik"],
+          "correct": 1
+        }
+      ]
+    }
+  ],
+  "finalQuiz": [
+    { "q": "Langkah dimana kedua katup tertutup dan piston bergerak ke atas adalah...", "a": ["Hisap", "Kompresi", "Buang"], "correct": 1 },
+    { "q": "Urutan siklus kerja mesin 4 tak yang benar adalah...", "a": ["Hisap-Usaha-Kompresi-Buang", "Hisap-Kompresi-Usaha-Buang", "Buang-Usaha-Kompresi-Hisap"], "correct": 1 },
+    { "q": "Komponen yang menjaga tekanan kompresi agar tidak bocor ke bak engkol adalah...", "a": ["Ring Oli", "Ring Kompresi", "Gasket"], "correct": 1 },
+    { "q": "HOTS: Jika mesin sulit hidup dan ada suara ledakan di karburator, kemungkinan masalahnya?", "a": ["Katup masuk bocor/tidak rapat", "Katup buang bocor", "Busi mati"], "correct": 0 },
+    { "q": "Fungsi Flywheel (Roda Gila) adalah...", "a": ["Menyimpan energi putar", "Mendinginkan mesin", "Mengatur bahan bakar"], "correct": 0 },
+    { "q": "Langkah Usaha terjadi setelah langkah...", "a": ["Hisap", "Kompresi", "Buang"], "correct": 1 },
+    { "q": "HOTS: Mengapa celah katup buang biasanya lebih lebar dari katup masuk?", "a": ["Agar gas buang cepat keluar", "Karena katup buang lebih panas (pemuaian)", "Agar suara mesin halus"], "correct": 1 },
+    { "q": "Apa yang dimaksud dengan Overlap pada katup?", "a": ["Kedua katup terbuka bersamaan", "Kedua katup tertutup bersamaan", "Katup macet"], "correct": 0 },
+    { "q": "HOTS: Apa dampak jika ring oli aus?", "a": ["Mesin panas", "Knalpot berasap putih", "Bensin boros"], "correct": 1 },
+    { "q": "Penyetelan katup dilakukan pada posisi piston...", "a": ["TMB", "TMA (Langkah Kompresi)", "TMA (Langkah Buang)"], "correct": 1 }
+  ]
+}
