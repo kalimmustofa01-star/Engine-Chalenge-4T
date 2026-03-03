@@ -166,6 +166,13 @@ export default function App() {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-md w-full bg-slate-800 border-2 border-blue-600 rounded-2xl p-8 shadow-2xl text-center"
         >
+          <div className="mb-8">
+            <h2 className="text-3xl font-black text-white tracking-tighter mb-1">GASPOL 4.0</h2>
+            <p className="text-[10px] leading-tight text-blue-400 font-bold uppercase px-4">
+              Gerakan Akselerasi Smart Problem-Oriented Learning Otomotif 4.0
+            </p>
+          </div>
+
           <div className="flex justify-center mb-6">
             <div className="bg-blue-600 p-4 rounded-full shadow-lg shadow-blue-500/20">
               <Wrench className="w-12 h-12 text-white" />
@@ -201,6 +208,12 @@ export default function App() {
     return (
       <div className="min-h-screen bg-slate-100 text-slate-900 p-4 md:p-8 flex flex-col items-center">
         <div className="max-w-2xl w-full">
+          {/* Branding */}
+          <div className="text-center mb-8">
+            <h2 className="text-xl font-black text-slate-800 tracking-tighter">GASPOL 4.0</h2>
+            <p className="text-[8px] font-bold text-blue-600 uppercase">Gerakan Akselerasi Smart Problem-Oriented Learning Otomotif 4.0</p>
+          </div>
+
           {/* Header */}
           <div className="flex justify-between items-center mb-6">
             <div>
@@ -443,7 +456,13 @@ export default function App() {
 
   if (gameState === 'userInfo') {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-4">
+        {/* Branding */}
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-black text-white tracking-tighter">GASPOL 4.0</h2>
+          <p className="text-[8px] font-bold text-blue-400 uppercase">Gerakan Akselerasi Smart Problem-Oriented Learning Otomotif 4.0</p>
+        </div>
+
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -520,7 +539,13 @@ export default function App() {
     const isPassed = finalPercentage >= 75;
 
     return (
-      <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-100 flex flex-col items-center justify-center p-4">
+        {/* Branding */}
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-black text-slate-800 tracking-tighter">GASPOL 4.0</h2>
+          <p className="text-[8px] font-bold text-blue-600 uppercase">Gerakan Akselerasi Smart Problem-Oriented Learning Otomotif 4.0</p>
+        </div>
+
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
