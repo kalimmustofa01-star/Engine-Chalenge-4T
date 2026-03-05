@@ -169,7 +169,7 @@ export default function App() {
           <div className="mb-8">
             <h2 className="text-3xl font-black text-white tracking-tighter mb-1">GASPOL 4.0</h2>
             <p className="text-[10px] leading-tight text-blue-400 font-bold uppercase px-4">
-              Gerakan Akselerasi Smart Problem-Oriented Learning Otomotif 4.0
+              Game Automotive Smart Problem-Oriented Learning 4.0
             </p>
           </div>
 
@@ -211,7 +211,7 @@ export default function App() {
           {/* Branding */}
           <div className="text-center mb-8">
             <h2 className="text-xl font-black text-slate-800 tracking-tighter">GASPOL 4.0</h2>
-            <p className="text-[8px] font-bold text-blue-600 uppercase">Gerakan Akselerasi Smart Problem-Oriented Learning Otomotif 4.0</p>
+            <p className="text-[8px] font-bold text-blue-600 uppercase">Game Automotive Smart Problem-Oriented Learning 4.0</p>
           </div>
 
           {/* Header */}
@@ -460,7 +460,7 @@ export default function App() {
         {/* Branding */}
         <div className="text-center mb-8">
           <h2 className="text-2xl font-black text-white tracking-tighter">GASPOL 4.0</h2>
-          <p className="text-[8px] font-bold text-blue-400 uppercase">Gerakan Akselerasi Smart Problem-Oriented Learning Otomotif 4.0</p>
+          <p className="text-[8px] font-bold text-blue-400 uppercase">Game Automotive Smart Problem-Oriented Learning 4.0</p>
         </div>
 
         <motion.div 
@@ -543,7 +543,7 @@ export default function App() {
         {/* Branding */}
         <div className="text-center mb-8">
           <h2 className="text-2xl font-black text-slate-800 tracking-tighter">GASPOL 4.0</h2>
-          <p className="text-[8px] font-bold text-blue-600 uppercase">Gerakan Akselerasi Smart Problem-Oriented Learning Otomotif 4.0</p>
+          <p className="text-[8px] font-bold text-blue-600 uppercase">Game Automotive Smart Problem-Oriented Learning 4.0</p>
         </div>
 
         <motion.div 
